@@ -36,16 +36,16 @@ def postprocess_image(result: torch.Tensor, im_size: list) -> np.ndarray:
     return im_array
 
 # Interfaz Streamlit
-st.set_page_config(page_title="Quitar Fondo - RMBG", layout="centered")
-st.title("🧼 Quitar fondo de imagen")
+st.set_page_config(page_title="AI Remover", layout="centered")
+st.title("🧼 Remove image background")
 
-uploaded_file = st.file_uploader("Sube una imagen📸", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Upload an image📸", type=["jpg", "jpeg", "png"])
 
 if uploaded_file:
     orig_image = Image.open(uploaded_file).convert("RGB")
-    st.image(orig_image, caption="Imagen original", use_column_width=True)
+    st.image(orig_image, caption="Original image", use_container_width=True)
 
-    with st.spinner("Procesando...⏳"):
+    with st.spinner("Processing...⏳"):
         model, device = load_model()
         orig_im = np.array(orig_image)
         orig_im_size = orig_im.shape[0:2]
@@ -65,9 +65,10 @@ if uploaded_file:
         no_bg_image.putalpha(pil_mask_im)
 
         # Mostrar resultado
-        st.image(no_bg_image, caption="Imagen sin fondo", use_column_width=True)
+        st.image(no_bg_image, caption="Image without background", use_container_width=True)
+
 
         # Botón para descarga
         buffer = io.BytesIO()
         no_bg_image.save(buffer, format="PNG")
-        st.download_button("📥 Descargar imagen sin fondo", buffer.getvalue(), file_name="sin_fondo.png", mime="image/png")
+        st.download_button("📥 Download image without background", buffer.getvalue(), file_name="sin_fondo.png", mime="image/png")
