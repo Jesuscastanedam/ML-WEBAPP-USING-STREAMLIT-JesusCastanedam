@@ -40,7 +40,7 @@ El objetivo principal de este proyecto es demostrar mi capacidad para:
 
 ```bash
 # Clona este repositorio
-git clone https://github.com/tu-usuario/ai-remover.git
+git clone https://github.com/Jesuscastanedam/ML-WEBAPP-USING-STREAMLIT-JesusCastanedam
 cd ai-remover
 
 # Crea un entorno virtual
